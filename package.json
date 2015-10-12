@@ -4,7 +4,8 @@
   "description": "A test of express functionality",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha -R spec --recursive"
+    "test": "./node_modules/.bin/mocha -R spec --recursive",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec --recursive"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/DerekKeeler/express-test#readme",
   "dependencies": {
+    "@sublimemedia/wicker-man-utilities": "^0.1.1",
+    "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "mongoose": "^4.1.10"

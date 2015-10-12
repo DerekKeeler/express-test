@@ -2,10 +2,12 @@
 
 const
   app = require('express')(),
-  baseRoute = require('./routes/base/schema'),
+  baseRoute = require('./routes/base/routes'),
+  parser = require('body-parser'),
   port = process.env.PORT || 3000;
 
-app.use('/base/schemas', baseRoute);
+app.use(parser.json());
+app.use('/base', baseRoute);
 
 module.exports = app;
 
