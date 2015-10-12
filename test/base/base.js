@@ -16,6 +16,11 @@ describe('Can CRUD data in "base" format', () => {
           bar: {},
           baz: {}
         }
+      },
+      replaceVal = {
+        test: {},
+        thing: {},
+        foobar: {}
       };
 
     it('should not GET all data for invalid routes', done => {
@@ -51,6 +56,27 @@ describe('Can CRUD data in "base" format', () => {
       .get(`${path}/${expKey}/`)
       .expect('Content-Type', /json/)
       .expect(200, expVal)
+      .end(done);
+    });
+
+    it('should POST nested data in json format for a valid route', done => {
+      const expKey = Object.keys(postData)[1];
+
+      request(app.listen())
+      .post(`${path}/${expKey}/`)
+      .send(replaceVal)
+      .expect('Content-Type', /json/)
+      .expect(200, replaceVal)
+      .end(done);
+    });
+
+    it('should GET nested modified data in json format and return the modified value', done => {
+      const expKey = Object.keys(postData)[1];
+
+      request(app.listen())
+      .get(`${path}/${expKey}/`)
+      .expect('Content-Type', /json/)
+      .expect(200, replaceVal)
       .end(done);
     });
   });

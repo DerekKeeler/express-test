@@ -5,14 +5,20 @@ const
 
 let holding = {};
 
+function convertPath(path) {
+	return path.replace(/\//gi, '.');
+}
+
 module.exports = {
 	get(path) {
-		const reqVal = util.getFromPath(path.replace(/\//gi, '.'), holding);
+		const reqVal = util.getFromPath(convertPath(path), holding);
 
 		return Promise[reqVal ? 'resolve' : 'reject'](reqVal);
 	},
 
-	set(param, val) {
-		return Promise.resolve(holding[param] = val);
+	set(path, val) {
+		let pathInfo = util.getFromPath(convertPath(path), holding, true);
+
+		return Promise.resolve(pathInfo.key ? pathInfo.parent[pathInfo.key] = val : holding[path] = val);
 	}
 };
